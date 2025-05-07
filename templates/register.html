@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - MedTrackr</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">MedTrackr</div>
+        <div class="nav-links">
+            <a href="{{ url_for('index') }}" class="btn btn-outline">Home</a>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="form-container">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #1e3a8a;">Create Account</h2>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 1.5rem;">
+                Already have an account? 
+                <a href="{{ url_for('login') }}" style="color: #2563eb; text-decoration: none;">Login</a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>MedTrackr</h4>
+                <p>Your trusted medication management companion</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>support@medtrackr.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 MedTrackr. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Password confirmation validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Passwords do not match!');
+            }
+        });
+    </script>
+</body>
+</html> 
