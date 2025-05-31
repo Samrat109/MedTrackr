@@ -357,8 +357,9 @@ def update_phone():
         if not phone_number:
             return jsonify({'success': False, 'error': 'Phone number is required'})
         
-        # Validate phone number format
-        if not phone_number.match(r'^[+]?[0-9]{10,15}$'):
+        # Validate phone number format using re module
+        import re
+        if not re.match(r'^[+]?[0-9]{10,15}$', phone_number):
             return jsonify({'success': False, 'error': 'Invalid phone number format'})
         
         # Update user's phone number
